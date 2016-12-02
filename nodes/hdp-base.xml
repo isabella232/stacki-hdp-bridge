@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+</description>
+
+<si_copyright>
+(c) 2006 - 2014 StackIQ Inc. All rights reserved.
+Redistribution is prohibited.
+</si_copyright>
+
+<package>jdk</package>
+
+</kickstart>

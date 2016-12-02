@@ -1,0 +1,4 @@
+{
+  "oozie.service.ProxyUserService.proxyuser.falcon.hosts": "*", 
+  "oozie.service.ProxyUserService.proxyuser.falcon.groups": "*"
+}

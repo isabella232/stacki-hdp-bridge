@@ -1,0 +1,1 @@
+NAME=hdp-bridge-templates

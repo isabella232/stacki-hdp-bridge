@@ -1,0 +1,118 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+</description>
+
+<si_copyright>
+(c) 2006 - 2014 StackIQ Inc. All rights reserved.
+Redistribution is prohibited.
+</si_copyright>
+
+<package>postgresql-server</package>
+<package>ambari-server</package>
+
+<post>
+mkdir -p /root/ambari/
+<!--
+     Create an hdp_data python file containing
+     frontend hostname, names of the HDP pallets,
+     StackIQ version 
+
+-->
+<file name="/root/ambari/hdp_data.py">
+<eval shell="/opt/stack/bin/python">
+import os
+import stack.api
+import stack.api.get
+import re
+
+# Get Frontend FQDN
+fe_hostname = stack.api.get.GetHostname("frontend")
+fe_domainname = stack.api.get.GetHostAttr(fe_hostname, "domainname")
+print "repo_host = \"%s.%s\"" % (fe_hostname, fe_domainname)
+print "stack_version = \"&version;\""
+print "stack_release = \"&release;\""
+
+box = stack.api.get.GetHostAttr("&hostname;", "box")
+pallets = stack.api.Call("list box pallet %s" % box)
+hdp_re = re.compile("^HDP-[0-9\.]+$")
+hdp_utils_re = re.compile("^HDP-UTILS-[0-9\.]+$")
+for pallet in pallets:
+	if hdp_re.match(pallet['pallet']):
+		print "hdp_pallet = {'name':'%s', 'version':'%s'}" % \
+			(pallet['pallet'], pallet['version'])
+		continue
+	if hdp_utils_re.match(pallet['pallet']):
+		print "hdp_utils_pallet = {'name':'%s', 'version':'%s'}" % \
+			(pallet['pallet'], pallet['version'])
+		continue
+
+</eval>
+</file>
+
+<!-- Setup the default Stacki repositories for Ambari and HDP-->
+<file name="/root/ambari/reposetup.py" perms="0744"><![CDATA[
+#!/usr/bin/env python
+import os
+from hdp_data import *
+
+if stack_release == '7.x':
+	ostype = "redhat7"
+elif stack_release == '6.x':
+	ostype = "redhat6"
+
+ambaridir = '/var/lib/ambari-server/resources/stacks/HDP/'
+baseurl = """http://{0}/install/pallets/{1}/{2}/redhat/x86_64/"""
+
+for (root, dirs, files) in os.walk(ambaridir, topdown=True):
+	if 'repoinfo.xml' in files:
+		f = open('%s/repoinfo.xml' % root, 'w+')
+		f.write('<reposinfo>\n')
+
+		for pallet in [hdp_pallet,hdp_utils_pallet]:
+			f.write('\t<os family="%s">\n' % ostype)
+			f.write('\t\t<repo>\n')
+			f.write('\t\t\t<baseurl>%s</baseurl>' % \
+				baseurl.format(repo_host, pallet['name'], pallet['version']))
+			f.write('\t\t\t<repoid>%s</repoid>\n' % pallet['name'])
+			f.write('\t\t\t<reponame>%s</reponame>\n' % pallet['name'])
+			f.write('\t\t</repo>\n')
+			f.write('\t</os>\n')
+
+		f.write('</reposinfo>\n')
+		f.close()
+
+]]>
+</file>
+/root/ambari/reposetup.py
+
+<!-- Create the Ambari User/Group -->
+groupadd -g 493 -r ambari
+useradd -u 493 -g 493 \
+	-r -s /sbin/nologin \
+	-M -d /var/lib/ambari-server/ \
+	ambari
+
+<!-- Modify the ambari-server.user property to point
+     to the ambari user -->
+
+sed '/ambari-server.user/s/root/ambari/g'  \
+	/etc/ambari-server/conf/ambari.properties > /tmp/ambari.properties
+cp -f /tmp/ambari.properties /etc/ambari-server/conf/ambari.properties
+
+</post>
+
+<boot order="post">
+touch /etc/yum.repos.d/ambari.repo
+<!-- Setup the Ambari Server -->
+/usr/sbin/ambari-server setup -j /usr/java/latest/ -s
+
+<!-- Enable the Ambari server to start on boot -->
+/sbin/chkconfig ambari-server on
+
+service ambari-server start
+</boot>
+
+</kickstart>

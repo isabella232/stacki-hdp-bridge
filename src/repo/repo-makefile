@@ -1,0 +1,23 @@
+AMBARIREPOFILE = /export/HDP/ambari.repo
+AMBARIREPOS = $(shell yum -v repolist -c $(AMBARIREPOFILE) | \
+	grep 'Repo-id' | egrep "HDP|ambari" | awk '{print $$3;}')
+
+HDPREPOFILE = /export/HDP/hdp.repo
+HDPREPOS = $(shell yum -v repolist -c $(HDPREPOFILE)| \
+	grep 'Repo-id' | egrep "HDP|ambari" | awk '{print $$3;}')
+
+STACK = /opt/stack/bin/stack
+
+default:	mirror
+
+mirror: $(AMBARIREPOS) $(HDPREPOS)
+
+$(AMBARIREPOS): $(AMBARIREPOFILE)
+	$(STACK) create mirror repoid=$@ repoconfig=$< \
+		name=$(shell ./getname $@) \
+		version=$(shell ./getvers $@)
+
+$(HDPREPOS): $(HDPREPOFILE)
+	$(STACK) create mirror repoid=$@ repoconfig=$< \
+		name=$(shell ./getname $@) \
+		version=$(shell ./getvers $@)

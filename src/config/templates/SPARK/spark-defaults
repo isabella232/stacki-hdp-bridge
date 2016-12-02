@@ -1,0 +1,17 @@
+{
+  "spark.yarn.applicationMaster.waitTries": "10", 
+  "spark.history.kerberos.keytab": "none", 
+  "spark.yarn.preserve.staging.files": "false", 
+  "spark.yarn.submit.file.replication": "3", 
+  "spark.history.kerberos.principal": "none", 
+  "spark.yarn.scheduler.heartbeat.interval-ms": "5000", 
+  "spark.yarn.queue": "default", 
+  "spark.yarn.containerLauncherMaxThreads": "25", 
+  "spark.yarn.driver.memoryOverhead": "384", 
+  "spark.history.ui.port": "18080", 
+  "spark.yarn.max.executor.failures": "3", 
+  "spark.driver.extraJavaOptions": "", 
+  "spark.history.provider": "org.apache.spark.deploy.yarn.history.YarnHistoryProvider", 
+  "spark.yarn.am.extraJavaOptions": "", 
+  "spark.yarn.executor.memoryOverhead": "384"
+}
