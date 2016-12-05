@@ -1,5 +1,0 @@
-{
-  "security.admin.protocol.acl": "*", 
-  "security.masterregion.protocol.acl": "*", 
-  "security.client.protocol.acl": "*"
-}

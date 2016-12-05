@@ -1,1 +1,1 @@
-NAME = hdp-bridge-repo
+NAME = stacki-hdp-bridge-repo

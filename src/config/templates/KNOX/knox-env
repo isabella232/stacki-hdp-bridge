@@ -1,6 +1,0 @@
-{
-  "knox_group": "knox", 
-  "knox_master_secret": "admin", 
-  "knox_pid_dir": "/var/run/knox", 
-  "knox_user": "knox"
-}

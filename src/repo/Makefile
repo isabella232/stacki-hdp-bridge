@@ -11,9 +11,7 @@
 PKGROOT = /export/HDP
 ROLLROOT = ../../
 
-SCRIPTS = getname.py getvers.py
-REPOFILES = $(RELEASE)/ambari.repo $(RELEASE)/hdp.repo 
-DEPENDS.FILES = $(SCRIPTS) $(REPOFILES) repo-makefile
+SCRIPTS = gethdp.py
 
 include $(STACKBUILD)/etc/CCRules.mk
 
@@ -21,9 +19,6 @@ build:
 
 install::
 	mkdir -p $(ROOT)/$(PKGROOT)
-	$(INSTALL) -m 0644 $(RELEASE)/*.repo $(ROOT)/$(PKGROOT)/
-	$(INSTALL) -m 0755 getname.py $(ROOT)/$(PKGROOT)/getname
-	$(INSTALL) -m 0755 getvers.py $(ROOT)/$(PKGROOT)/getvers
-	$(INSTALL) -m 0644 repo-makefile $(ROOT)/$(PKGROOT)/Makefile
+	$(INSTALL) -m 0755 gethdp.py $(ROOT)/$(PKGROOT)/gethdp
 
 clean::

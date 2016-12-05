@@ -1,0 +1,30 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+</description>
+
+<si_copyright>
+(c) 2006 - 2014 StackIQ Inc. All rights reserved.
+Redistribution is prohibited.
+</si_copyright>
+
+<post>
+<file name="/etc/ld.so.conf.d/confuse.conf">
+/opt/confuse/lib
+</file>
+
+<file name="/etc/security/limits.d/90-hdp-limits.conf" perms="0644">
+*	hard	nofile	10000
+*	soft	nofile	10000
+</file>
+
+<file name="/etc/hosts">
+<eval>
+/opt/stack/bin/stack report host
+</eval>
+</file>
+</post>
+
+</kickstart>

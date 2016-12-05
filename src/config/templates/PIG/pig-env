@@ -1,3 +1,0 @@
-{
-  "content": "\nJAVA_HOME={{java64_home}}\nHADOOP_HOME=${HADOOP_HOME:-{{hadoop_home}}}\n\nif [ -d \"/usr/lib/tez\" ]; then\n  PIG_OPTS=\"$PIG_OPTS -Dmapreduce.framework.name=yarn\"\nfi"
-}

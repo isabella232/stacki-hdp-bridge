@@ -1,0 +1,22 @@
+<?xml version="1.0" standalone="no"?>
+
+<kickstart>
+
+<description>
+</description>
+
+<si_copyright>
+(c) 2006 - 2014 StackIQ Inc. All rights reserved.
+Redistribution is prohibited.
+</si_copyright>
+
+
+<package>stacki-hdp-bridge-repo</package>
+
+
+<post>
+/opt/stack/bin/stack add appliance ambari membership=Ambari node=hdp-ambari
+/opt/stack/bin/stack set appliance attr ambari attr=managed value=true
+</post>
+
+</kickstart>
