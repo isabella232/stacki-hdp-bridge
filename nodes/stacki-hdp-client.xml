@@ -20,11 +20,12 @@ Redistribution is prohibited.
 *	soft	nofile	10000
 </file>
 
-<file name="/etc/hosts">
+<file name="/tmp/hosts">
 <eval>
 /opt/stack/bin/stack report host
 </eval>
 </file>
+cp /tmp/hosts /etc/hosts
 </post>
 
 </kickstart>

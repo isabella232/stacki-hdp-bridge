@@ -15,8 +15,17 @@ Redistribution is prohibited.
 
 
 <post>
-/opt/stack/bin/stack add appliance ambari membership=Ambari node=hdp-ambari
+/opt/stack/bin/stack add appliance ambari membership=Ambari node=stacki-hdp-ambari
 /opt/stack/bin/stack set appliance attr ambari attr=managed value=true
+
+<file name="/export/HDP/hdp.cfg"
+[default]
+distribution = 2.x
+os = centos7
+ambari = 2.4.2.0
+hdp = 2.5.3.0
+</file>
+
 </post>
 
 </kickstart>

@@ -37,18 +37,15 @@ print "stack_release = \"&release;\""
 
 box = stack.api.get.GetHostAttr("&hostname;", "box")
 pallets = stack.api.Call("list box pallet %s" % box)
-hdp_re = re.compile("^HDP-[0-9\.]+$")
-hdp_utils_re = re.compile("^HDP-UTILS-[0-9\.]+$")
 for pallet in pallets:
-	if hdp_re.match(pallet['pallet']):
+	if 'HDP' == pallet['pallet']:
 		print "hdp_pallet = {'name':'%s', 'version':'%s'}" % \
 			(pallet['pallet'], pallet['version'])
 		continue
-	if hdp_utils_re.match(pallet['pallet']):
+	if 'HDP-UTILS' == pallet['pallet']:
 		print "hdp_utils_pallet = {'name':'%s', 'version':'%s'}" % \
 			(pallet['pallet'], pallet['version'])
 		continue
-
 </eval>
 </file>
 

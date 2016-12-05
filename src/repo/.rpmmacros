@@ -1,5 +1,5 @@
 %_topdir		/state/partition1/src/stacki-hdp-bridge/src/repo/../..//build-stacki-hdp-bridge-master
-%buildroot	/state/partition1/src/stacki-hdp-bridge/src/repo/hdp-bridge-repo.buildroot
+%buildroot	/state/partition1/src/stacki-hdp-bridge/src/repo/stacki-hdp-bridge-repo.buildroot
 %_var		/var
 %debug_package	%{nil}
 %__os_install_post    \
