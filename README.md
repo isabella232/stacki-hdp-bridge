@@ -3,59 +3,79 @@ Introduction
 
 The Hortonworks Data Platform (HDP) is an enterprise-grade Hadoop distribution from Hortonworks. Architected, developed, and built completely in the open, HDP provides Hadoop designed to meet the needs of enterprise data processing.
 
-The deployment of HDP on a cluster is a non-trivial task. The Ambari service, developed by Hortonworks, aids in the installation of HDP. Ambari provides a web interface that enables the deployment of Hadoop services across a cluster. However, this requires an additional deployment step. While Ambari is used to deploy HDP on a cluster, Ambari itself needs to be setup on a cluster too. Stacki automates the deployment of Ambari in a few simple steps.
+The deployment of HDP on a cluster is a non-trivial task. The Ambari service, developed by Hortonworks, aids in the 
+installation of HDP. Ambari provides a web interface that enables the deployment of Hadoop services across a cluster. 
+However, this requires an additional deployment step. While Ambari is used to deploy HDP on a cluster, 
+Ambari itself needs to be setup on a cluster too. Stacki automates the deployment of Ambari in a few simple steps.
 
-The Stacki bridge Roll for HDP provides the software necessary to easily deploy Ambari on a cluster.
+The Stacki bridge Roll for HDP provides the software necessary to easily deploy Ambari and then HDP on a cluster.
 
-Installing Ambari/HDP with Stacki
-----------------------------------
+### Installing Ambari/HDP with Stacki
+
+##### Prepare the stacki frontend
 
 The installation of Ambari and subsequent deployment of HDP on your cluster requires:
 
-A working stacki frontend with an internet connection.
-The stacki-hdp-bridge pallet.
-The HDP repositories pulled from the Hortonworks site. 
+1. A working stacki frontend with an internet connection.
+2. The stacki-hdp-bridge pallet.
+3. The HDP repositories pulled from the Hortonworks site. 
 
 Luckily, we have made this easy for you.
 
-1. First install a stacki fronted.
-This has been documented before. If you're on this documentation, you have already installed a frontend. If you are here without a stacki frontend. Go install one. Then come back. I can wait...(Are we there yet?)
+1. First install a stacki frontend.
+This has been documented [before](https://github.com/StackIQ/stacki/wiki/Frontend-Installation). 
+If you're on this documentation, you have already installed a frontend. 
+If you are here without a stacki frontend. Go install one. Then come back. I can wait...(Are we there yet?)
 
 2. Install the stacki-hdp-pallet.
-```
-# git clone this repository 
-```
-or
+On your frontend, either download, add enable:
+
+If we have actually put this into S3 somewhere:
 ```
 # wget * the iso
-```
-Add and then enable the pallet:
-```
+
+Add and then add and enable the pallet:
+
 # stack add pallet stacki-hdp-pallet*.iso
 # stack list pallet 
-```
 
 to make sure it's present
 
 Then enable it:
-```
+
 # stack enable pallet stacki-hdp-pallet
 ```
+
+or clone,build, add, and enable
+```
+# git clone this https://github.com/StackIQ/stacki-hdp-bridge.git
+# cd stacki-hdp-bridge
+# make
+
+Add and enable:
+# stack add pallet build-stacki-hdp-bridge-master/stacki-hdp-pallet*.iso
+# stack enable pallet stacki-hdp-pallet
+```
+
 Now run it. A pallet generally has both frontend and backend configuration. To get the frontend configuration to happen for a pallet that contains it, run the pallet
 ```
 # stack run pallet stacki-hdp-bridge
 ```
-To see what scripts are going to run, and then run it for real:
+To see what scripts are going to run. 
+
+Then run it for real:
 ```
 # stack run pallet stacki-hdp-bridge | bash
 ```
 The hdp-bridge pallet creates an ambari appliance, some key/value pairs (attributes), and sets-up a directory for getting the HDP repository you want. 
 
+
+#### Setup Ambari and HDP repositories.
+
 Let's get the HDP and HDP-UTILS and Ambari repositories
 ```
 # cd /export/HDP
-```
-```
+
 # cat hdp.cfg
 
 [default]
@@ -66,7 +86,7 @@ hdp = 2.5.3.0
 ```
 
 
-The hdp.cfg is an ini-style file that tells the "gethdp" program which versions of the Ambari and HDP to download. You'll note that this is latest and greatest. To get something different, change the appropriate entries and run the "gethdp" script in that directory.
+The hdp.cfg is an ini-style file that tells the "gethdp" program which versions of the Ambari and HDP to download. You'll note that this is latest and greatest. To get something different, change the appropriate entries and run the "gethdp" script in that directory. I don't know what to tell you if you want this on Ubuntu. Aks the question on either googlegroups or Slack. I might have an answer by then.
 
 Get the distribution:
 
@@ -80,11 +100,17 @@ You won't have any HDP or Ambari pallets yet. We are going to get them now.
 # gethdp
 ```
 
-This generates the ambari.repo and hdp.repo files in the /export/HDP directory. Then it uses those repo files to download the Updates-ambari, HDP, and HDP-Utils repositories and turns them into pallets. (Combines them into an iso which is what a pallet gets installed as.) 
+This generates the ambari.repo and hdp.repo files in the /export/HDP directory. Then it uses those repo files to download the 
+Updates-ambari, HDP, and HDP-Utils repositories and turns them into pallets. (Combines them into an iso file which is 
+what a pallet is.) 
 
-Now wait. Depending on your connection to the outside world, this can take minutes to hours. Go to lunch. Do yoga and then take a nap. Go to the dentist for the three root canals you've been putting off. (I recommend the nitrous.) Or drink more coffee than you ever have in your life and go home a quivering mass of stressed-out flesh. In the morning, these will be done. Hopefully you'll have slept.
+Now wait. Depending on your connection to the outside world, this can take minutes to hours. Go to lunch. Do yoga and then take a nap.
+Go to the dentist for the three root canals you've been putting off. (I recommend the nitrous.) Or drink more coffee than you 
+ever have in your life and go home a quivering mass of stressed-out flesh. In the morning, these will be done. Hopefully you'll 
+have slept.
 
-Once they're downloaded, this script will add the HDP, HDP-Utils and Ambari pallets and it will enable them too. Maybe that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? 
+Once they're downloaded, this script will add the HDP, HDP-Utils and Ambari pallets and it will enable them too. Maybe 
+that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, you can always reassign them to a different box. If you find this decision I made on your behalf to be too much like the dysfunctional parts of your family that drive you crazy, let us know, [Get your sister to do it.] and I'll happily let you add and enable your own damn pallets. 
 
 It should look like this:
 ```
@@ -100,8 +126,9 @@ Updates-ambari:    2.4.2.0  7.x     x86_64 redhat default
 stacki-hdp-bridge: 2.5      7.x     x86_64 redhat default
 ```
 
-Installing an Ambari Server
-===================================
+##### Installing an Ambari Server
+
+With all the right pallets added and enabled. We can go about installing an Ambari server.
 
 The bridge pallet creates an ambari appliance when you do the "stack run pallet stacki-hdp-bridge | bash" command.
 
@@ -113,9 +140,11 @@ backend:  Backend   yes
 ambari:   Ambari    yes
 ```
 
-This allows us to set-up the configuration on initial installation so you have a fully functioning Ambari instance. From this Ambari machine, you can deploy HDP on the rest of the machines. 
+This allows us to set-up the configuration on initial installation so you have a fully functioning Ambari instance. From this 
+Ambari machine, you can deploy HDP on the rest of the machines. 
 
-Separating the Ambari server from the frontend (many of our application pallets do this) separates the roles of the machines in the cluster. If you lose the frontend (rare), you still have a fully functioning Ambari/HDP cluster. 
+Separating the Ambari server from the frontend (many of our application pallets do this) separates the roles of the machines 
+in the cluster. If you lose the frontend (rare), you still have a fully functioning Ambari/HDP cluster. 
 
 Right now they're all "backend" appliances:
 ```
@@ -143,16 +172,19 @@ backend-0-3: 0    3    2    backend   default ----------- os        install
 backend-0-4: 0    4    2    backend   default ----------- os        install
 ```
 
-Now we'll install the Ambari appliance. If you have not installed all the backend machines yet, you can do so at this time. There are no dependencies between the Ambari server and the backend machines. 
+Now we'll install the Ambari appliance. If you have not installed all the backend machines yet, you can do so at this time. 
+There are no dependencies between the Ambari server and the backend machines. 
 
 Set the disks and controllers to nuke if this is the first time:
 ```
 # stack set host attr backend ambari attr=nukedisks value=true
 # stack set host attr backend ambari attr=nukecontroller value=true
 ```
-(The "backend ambari" in the above commands automatically apply the command to any machine that is one of those appliances. You can use regexes too. Neato huh?)
+(The "backend ambari" in the above commands automatically apply the command to any machine that is one of those appliances. 
+You can use regexes too. Neato huh?)
 
-Set them to install on the next pxe boot. (Your machines are set to pxe first right? If you're managing a cluster and they're not, why not? You need to explain.
+Set them to install on the next pxe boot. (Your machines are set to pxe first right? If you're managing a cluster and they're not, 
+why not? You need to explain. If your explanation starts out with, "Because Networking..." then we get it and we extend our sympathies to you.)
 
 ```
 # stack set host boot backend ambari action=install
@@ -161,8 +193,8 @@ Now reboot or power cycle in whatever manner you have. My condolences if you hav
 
 Once the machines are up, go to the next section to setup Hadoop.
 
-Deploying Hortonworks Data Platform
-===================================
+### Deploying Hortonworks Data Platform
+
 
 As mentioned in a previous section, |hdp| can be deployed using the Ambari Installation service. The Ambari service provides a web UI, as well as a HTTP ReST API that allows the administrator to deploy |hdp|.
 
