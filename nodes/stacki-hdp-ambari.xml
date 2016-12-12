@@ -71,7 +71,7 @@ for (root, dirs, files) in os.walk(ambaridir, topdown=True):
 		for pallet in [hdp_pallet,hdp_utils_pallet]:
 			f.write('\t<os family="%s">\n' % ostype)
 			f.write('\t\t<repo>\n')
-			f.write('\t\t\t<baseurl>%s</baseurl>' % \
+			f.write('\t\t\t<baseurl>%s</baseurl>\n' % \
 				baseurl.format(repo_host, pallet['name'], pallet['version']))
 			f.write('\t\t\t<repoid>%s</repoid>\n' % pallet['name'])
 			f.write('\t\t\t<reponame>%s</reponame>\n' % pallet['name'])
