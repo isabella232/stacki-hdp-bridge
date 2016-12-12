@@ -226,7 +226,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
 1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://ambari-0-0.local:8080` This will bring up the figure-ambari-ui-login.
 
-    ![Ambari Login Screen](images/ambari/ambari-login.png)
+    ![Ambari Login Screen](src/images/ambari/ambari-login.png)
 
     By default, the Ambari administrator username is set to `admin`, and password is set to `admin`. Log in to the Web UI using these values.
 
@@ -236,7 +236,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
 2.  This will bring you to the figure-ambari-cluster. Name the HDP cluster. In this example, we use the name **dev**
 
-    ![Ambari Cluster Name Screen](images/ambari/ambari-clustername.png)
+    ![Ambari Cluster Name Screen](src/images/ambari/ambari-clustername.png)
 
     Click **Next**.
 
@@ -244,7 +244,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
     Here we choose HDP-2.1
 
-    ![HDP Stacks](images/ambari/ambari-stacks.png)
+    ![HDP Stacks](src/images/ambari/ambari-stacks.png)
 
     Click on \*\*Advanced Repository Options\*\* \<figure-ambari-repo\>.
 
@@ -252,7 +252,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
     If the cluster-wide IP address of the StackIQ management node is `10.1.1.1`, the repository should point to `http://10.1.1.1/install/distributions/stack-dist/x86_64`.
 
-    ![HDP RepoID and URL](images/ambari/ambari-repo.png)
+    ![HDP RepoID and URL](src/images/ambari/ambari-repo.png)
 
     Click **Next**.
 
@@ -262,17 +262,17 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
     In the space meant for *Private Key*, enter the contents of the `/root/.ssh/id_rsa` private key.
 
-    ![Host Installation Screen](images/ambari/ambari-bootstrap-hosts.png)
+    ![Host Installation Screen](src/images/ambari/ambari-bootstrap-hosts.png)
 
     Click **Next**.
 
 5.  The figure-ambari-hostinst shows you the status of installation and registration of compute nodes with the Ambari server.
 
-    ![Host Installation Screen](images/ambari/ambari-hostinst.png)
+    ![Host Installation Screen](src/images/ambari/ambari-hostinst.png)
 
     This process, depending on the number of hosts, typically takes a few minutes to complete. Once all the nodes have successfully installed, and you see the figure-ambari-hostinst-complete screen, click **Next**.
 
-    ![Host Installation Completion](images/ambari/ambari-hostinst-complete.png)
+    ![Host Installation Completion](src/images/ambari/ambari-hostinst-complete.png)
 
     > **warning**
     >
@@ -280,25 +280,25 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
 6.  The figure-ambari-services shows you all the available services in the HDP-2.1 stack. For this example we select all available services.
 
-    ![HDP Services Screen](images/ambari/ambari-services.png)
+    ![HDP Services Screen](src/images/ambari/ambari-services.png)
 
     Click **Next**.
 
 7.  The figure-ambari-service-map shows the mapping mapping between hosts and Master services. You may choose to leave this mapping as-is, or modify it to suit the needs of the installation.
 
-    ![HDP Master Components screen](images/ambari/ambari-service-map.png)
+    ![HDP Master Components screen](src/images/ambari/ambari-service-map.png)
 
     Click **Next**
 
 8.  The figure-ambari-service-map2 shows the mapping of hosts to slave and client components.
 
-    ![HDP Slave/Client Components screen](images/ambari/ambari-service-map2.png)
+    ![HDP Slave/Client Components screen](src/images/ambari/ambari-service-map2.png)
 
     Click **Next**
 
 9.  The figure-ambari-service-conf shows the configuration of all the services selected. You can customize the services as necessary.
 
-    ![HDP Service Configuration](images/ambari/ambari-service-conf.png)
+    ![HDP Service Configuration](src/images/ambari/ambari-service-conf.png)
 
     > **note**
     >
@@ -307,15 +307,15 @@ After the installation of all the backend nodes, the Ambari Server appliance all
     >
 10. The figure-ambari-confirmation, shows the confirmation dialog before starting the installation.
 
-    ![Confirmation/Deployment Screen](images/ambari/ambari-confirmation.png)
+    ![Confirmation/Deployment Screen](src/images/ambari/ambari-confirmation.png)
 
 11. The figure-ambari-installing, shows the status and progress of the installation of the HDP components, and dependent services.
 
-    ![HDP Installation Screen](images/ambari/ambari-installing.png)
+    ![HDP Installation Screen](src/images/ambari/ambari-installing.png)
 
 12. The figure-ambari-finish, shows the completion of the HDP Installation
 
-    ![HDP Installation Screen](images/ambari/ambari-finish.png)
+    ![HDP Installation Screen](src/images/ambari/ambari-finish.png)
 
 At the end of this process, you should have a fully-functional HDP installation.
 
