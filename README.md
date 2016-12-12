@@ -224,7 +224,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 >
 > This document lists a rudimentary HDP cluster with all services configured and installed.
 
-1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://ambari-0-0.local:8080` This will bring up the figure-ambari-ui-login.
+1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://backend-0-0.local:8080` This will bring up the figure-ambari-ui-login.
 
     ![Ambari Login Screen](src/images/ambari/ambari-login.png)
 
@@ -232,7 +232,8 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
     > **note**
     >
-    > It is recommended that the cluster administrator change these values through the Ambari UI, soon after configuring the HDP installation.
+    > It is recommended that the cluster administrator change these values through the Ambari UI, soon after configuring the 
+    > HDP installation.
 
 2.  This will bring you to the figure-ambari-cluster. Name the HDP cluster. In this example, we use the name **dev**
 
@@ -319,56 +320,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 
 At the end of this process, you should have a fully-functional HDP installation.
 
-Mirroring the HDP Repositories
-==============================
 
-StackIQ Enterprise enables easy mirroring of the |hdp| binaries.
+### The Future of Pallets
 
-1.  Create the |hdp| rolls :
-
-        # cd /export/HDP
-        # make
-        Mirroring repo HDP-UTILS-1.1.0.19
-        Creating disk1 (0.00MB)...
-        Building ISO image for disk1 ...
-        Mirroring repo Updates-ambari
-        Creating disk1 (0.00MB)...
-        Building ISO image for disk1 ...
-        Mirroring repo Updates-HDP-2.1.5
-        Creating disk1 (0.00MB)...
-        Building ISO image for disk1 ...
-        Mirroring repo ambari-1.x
-        Creating disk1 (0.00MB)...
-        Building ISO image for disk1 ...
-
-    Depending on the outbound internet connection, the above command may take some time (On the order of 30 minutes to 3 hours).
-
-2.  Once the HDP repositories are downloaded, the StackIQ Enterprise tools convert the repositories to StackIQ Rolls. This allows the administrator to add the repositories to the distribution and make them available for installation on all the backend nodes.
-3.  With version |version| of the hdp-bridge roll, the ISO images created are
-    -   ambari-1.x
-    -   Updates-ambari-1.6.1
-    -   Updates-HDP-2.1.5
-    -   HDP-UTILS-1.1.0.19
-
-4.  Add each of the above Roll ISO images to the StackIQ distribution, and enable them :
-
-        # stack add roll ambari-1.x-6.6-0.x86_64.disk1.iso
-        Copying ambari-1.x to Rolls.....77454 blocks
-        # stack enable roll ambari-1.x
-        # stack add roll HDP-UTILS-1.1.0.19-6.6-0.x86_64.disk1.iso
-        Copying HDP-UTILS-1.1.0.19 to Rolls.....43259 blocks
-        # stack enable roll HDP-UTILS-1.1.0.19
-        # stack add roll HDP-2.1.5.0-6.6-0.x86_64.disk1.iso
-        Copying HDP-2.1.5.0 to Rolls.....2816531 blocks
-        # stack enable roll HDP-2.1.5.0
-        # stack add roll Updates-ambari-1.6.1-6.5-0.x86_64.disk1.iso
-        Copying Updates-ambari-1.6.1 to Rolls.....93430 blocks
-        # stack enable roll Updates-ambari-1.6.1
-
-5.  After all the required HDP rolls are added, recreate the default distribution :
-
-        # stack create distro
-
-Once this is process is complete, the StackIQ Cluster Manager has prepared the environment for upgrading the |hdp| software.
-
-For more information about upgrading the |hdp| software on nodes running the Ambari service, and associated HDP services, contact Hortonworks Inc.
+Stacki doesn't have the engineering bandwidth to support and update every pallet we will end up open-sourcing. We are going to have to depend on you. For Ambari/HDP software upgrades, config changes, documentation updates, and testing. We are more than happy to help - actually we would love to help, but we can't be at the forefront of pallet creation and maintenance while attempting to make Stacki core better. Let us know if there is a particular software stack you want to see supported or if you would like to support a pallet we have released, and we'll help get you started on the road to being a Master StackSmith.
