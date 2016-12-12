@@ -10,22 +10,22 @@ Ambari itself needs to be setup on a cluster too. Stacki automates the deploymen
 
 The Stacki bridge Roll for HDP provides the software necessary to easily deploy Ambari and then HDP on a cluster.
 
-### Installing Ambari/HDP with Stacki
+## Installing Ambari/HDP with Stacki
 
-##### Prepare the stacki frontend
+### Prepare the stacki frontend
 
 The installation of Ambari and subsequent deployment of HDP on your cluster requires:
 
-1. A working stacki frontend with an internet connection.
-2. The stacki-hdp-bridge pallet.
-3. The HDP repositories pulled from the Hortonworks site. 
+* A working stacki frontend with an internet connection.
+* The stacki-hdp-bridge pallet.
+* The HDP repositories pulled from the Hortonworks site. 
 
 Luckily, we have made this easy for you.
 
 1. First install a stacki frontend.
-This has been documented [before](https://github.com/StackIQ/stacki/wiki/Frontend-Installation). 
-If you're on this documentation, you have already installed a frontend. 
-If you are here without a stacki frontend. Go install one. Then come back. I can wait...(Are we there yet?)
+This has been documented [before](https://github.com/StackIQ/stacki/wiki/Frontend-Installation). If you're on this documentation, 
+you have already installed a frontend. If you are here without a stacki frontend. Go install one. Then come back. 
+I can wait...(Are we there yet?)
 
 2. Install the stacki-hdp-pallet.
 On your frontend, either download, add enable:
@@ -70,9 +70,12 @@ Then run it for real:
 The hdp-bridge pallet creates an ambari appliance, some key/value pairs (attributes), and sets-up a directory for getting the HDP repository you want. 
 
 
-#### Setup Ambari and HDP repositories.
+### Setup Ambari and HDP repositories.
 
-Let's get the HDP and HDP-UTILS and Ambari repositories
+Let's get the HDP and HDP-UTILS and Ambari repositories.
+
+#### Change configuration?
+
 ```
 # cd /export/HDP
 
@@ -88,7 +91,7 @@ hdp = 2.5.3.0
 
 The hdp.cfg is an ini-style file that tells the "gethdp" program which versions of the Ambari and HDP to download. You'll note that this is latest and greatest. To get something different, change the appropriate entries and run the "gethdp" script in that directory. I don't know what to tell you if you want this on Ubuntu. Aks the question on either googlegroups or Slack. I might have an answer by then.
 
-Get the distribution:
+#### Get the distribution:
 
 If you do:
 ```
@@ -110,7 +113,9 @@ ever have in your life and go home a quivering mass of stressed-out flesh. In th
 have slept.
 
 Once they're downloaded, this script will add the HDP, HDP-Utils and Ambari pallets and it will enable them too. Maybe 
-that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, you can always reassign them to a different box. If you find this decision I made on your behalf to be too much like the dysfunctional parts of your family that drive you crazy, let us know, [Get your sister to do it.] and I'll happily let you add and enable your own damn pallets. 
+that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, you 
+can always reassign them to a different box. If you find this decision I made on your behalf to be too much like the the worst 
+parts of your dysfunctional family, let us know, and I'll remove the code and happily let you add and enable your own damn pallets. 
 
 It should look like this:
 ```
@@ -126,9 +131,10 @@ Updates-ambari:    2.4.2.0  7.x     x86_64 redhat default
 stacki-hdp-bridge: 2.5      7.x     x86_64 redhat default
 ```
 
-##### Installing an Ambari Server
+##### Installing an Ambari Server on a backend node
 
-With all the right pallets added and enabled. We can go about installing an Ambari server.
+With all the right pallets added and enabled. We can go about installing an Ambari server. This goes on a "backend" node and 
+not on the frontend.
 
 The bridge pallet creates an ambari appliance when you do the "stack run pallet stacki-hdp-bridge | bash" command.
 
@@ -146,7 +152,7 @@ Ambari machine, you can deploy HDP on the rest of the machines.
 Separating the Ambari server from the frontend (many of our application pallets do this) separates the roles of the machines 
 in the cluster. If you lose the frontend (rare), you still have a fully functioning Ambari/HDP cluster. 
 
-Right now they're all "backend" appliances:
+Right now, they're all "backend" appliances:
 ```
 # stack list host
 HOST         RACK RANK CPUS APPLIANCE BOX     ENVIRONMENT RUNACTION INSTALLACTION
@@ -195,12 +201,12 @@ Once the machines are up, go to the next section to setup Hadoop.
 
 ### Deploying Hortonworks Data Platform
 
+As mentioned in a previous section, HDP can be deployed using the Ambari Installation service. The Ambari service provides a web UI, 
+as well as a HTTP ReST API that allows the administrator to deploy HDP.
 
-As mentioned in a previous section, |hdp| can be deployed using the Ambari Installation service. The Ambari service provides a web UI, as well as a HTTP ReST API that allows the administrator to deploy |hdp|.
+The Ambari GUI is a web-based service that can be accessed using a web-browser. This is the easiest way to get HDP up and functioning, and our example below will outline what to do.
 
-The Ambari GUI is a web-based service that can be accessed using a web-browser.
-
-The Ambari ReST API requires the admin to make HTTP calls to the Ambari service. |stackiq| provides a wrapper to the Ambari API that makes it easy to deploy |hdp| without using the Ambari GUI.
+The Ambari ReST API requires the admin to make HTTP calls to the Ambari service. This is for advanced users and is not recommended for first time users of HDP.
 
 ### Using the Ambari GUI
 
@@ -218,7 +224,7 @@ After the installation of all the backend nodes, the Ambari Server appliance all
 >
 > This document lists a rudimentary HDP cluster with all services configured and installed.
 
-1.  By default, the hostname of the ambari server is `ambari-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://ambari-0-0.local:8080` This will bring up the figure-ambari-ui-login.
+1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://ambari-0-0.local:8080` This will bring up the figure-ambari-ui-login.
 
     ![Ambari Login Screen](images/ambari/ambari-login.png)
 
