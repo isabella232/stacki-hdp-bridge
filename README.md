@@ -204,9 +204,9 @@ Once the machines are up, go to the next section to setup Hadoop.
 As mentioned in a previous section, HDP can be deployed using the Ambari Installation service. The Ambari service provides a web UI, 
 as well as a HTTP ReST API that allows the administrator to deploy HDP.
 
-The Ambari GUI is a web-based service that can be accessed using a web-browser. This is the easiest way to get HDP up and functioning, and our example below will outline what to do.
-
-The Ambari ReST API requires the admin to make HTTP calls to the Ambari service. This is for advanced users and is not recommended for first time users of HDP.
+The Ambari GUI is a web-based service that can be accessed using a web-browser. This is the easiest way to get HDP up and functioning.
+The Ambari ReST API requires the admin to make HTTP calls to the Ambari service. This is for advanced users and is not recommended 
+for first time users of HDP.
 
 ### Using the Ambari GUI
 
@@ -226,7 +226,7 @@ contact Hortonworks Inc. for more information on the choices for installation an
 
 [Hortonworks documentation](http://docs.hortonworks.com/index.html) has a plethora of possibilties.
 
-This document lists a rudimentary HDP cluster with all services configured and installed.
+Let's get you in.
 
 1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://backend-0-0.local:8080` This will bring up the figure-ambari-ui-login.
 
@@ -241,35 +241,31 @@ This document lists a rudimentary HDP cluster with all services configured and i
 
 From here, you should really consult the Ambari installation documentation starting at [Chapter 3](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-installation/content/ch_Deploy_and_Configure_a_HDP_Cluster.html).
 
-This will walk you through the steps required to get something up and running. The number of options are truly stunning. 
-This would be a re-documentation of the same thing Hortonworks has already done. 
+This will walk you through the steps required to get HDP up and running. The number of options are truly stunning, and covering all 
+of them would be a re-writing of the Hortonworks documentation. They're the experts; they should guide you.
 
-You can start Chapter 3, because everything prior to that has been done already once you installed the Ambari appliance and 
+You can start at Chapter 3, because everything prior to that has been done already once you installed the Ambari appliance and 
 all the machines. You only have the configuration of the cluster left.
 
 There are, however, some caveats.
 
 1. When you are asked for the SSH private key, use the private key from the frontend. Just cut and paste the key from /root/.ssh/id_rsa.
-
-2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend 
-in /etc/yum.repos.d/stacki.repo It should look like below:
-
-3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according 
-to the instructions in the [Using Non-Default Databases](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-reference/content/ch_amb_ref_using_non_default_databases.html#header) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
+2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend in /etc/yum.repos.d/stacki.repo It should look like below:
+3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according to the instructions in the [Using Non-Default Databases](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-reference/content/ch_amb_ref_using_non_default_databases.html#header) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
 
 At the end of this process, you should have a fully-functional HDP installation. You may likely need to do this several times 
-before you get it right. That's okay, Stacki allows for the fast install/reinstall of a cluster. And if you run into problems, 
+before you get it right. That's OK, Stacki allows for the fast install/reinstall of a cluster. If you run into problems, 
 ask on Slack or on the Google Group, and someone should be able to at least point you in the right direction.
 
 
 #### The Future of this Pallet
 
 Some ideas:
-* Create options for a non-default database. Use key/value pairs or maybe a standalone default DB appliance?
+* Create options for a using non-default database for selected services. Use key/value pairs or maybe a standalone default DB appliance?
 * API calls to just set this up from the command line. Hortonworks has an API, command line calls should be able to do all of 
 this from the frontend without touching the web-UI.
 * 
 
-### The Future of Pallets
+### The Future of Pallets in General
 
 Stacki doesn't have the engineering bandwidth to support and update every pallet we will end up open-sourcing. We are going to have to depend on you for Ambari/HDP software upgrades, config changes, documentation updates, and testing. We are more than happy to help - actually we would love to help, but we can't be at the forefront of pallet creation and maintenance while attempting to make Stacki core better. Let us know if there is a particular software stack you want to see supported or if you would like to support a pallet we have released. We'll get you on the road to being a Master StackSmith.
