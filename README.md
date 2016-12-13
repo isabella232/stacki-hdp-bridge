@@ -210,19 +210,23 @@ The Ambari ReST API requires the admin to make HTTP calls to the Ambari service.
 
 ### Using the Ambari GUI
 
-After the installation of all the backend nodes, the Ambari Server appliance allows the installation, configuration, monitoring, and management of the entire HDP stack using a web-based administration tool, called the Ambari GUI. This tool is accessible by a web-browser at port 8080 of the ambari server.
+After the installation of all the backend nodes, the Ambari Server appliance allows the installation, configuration, monitoring, 
+and management of the entire HDP stack using a web-based administration tool, called the Ambari GUI. This tool is accessible 
+via web-browser at port 8080 of the ambari server, in our example, backend-0-0.
 
-> **note**
->
-> The instructions below will require you to
->
-> -   Choose Hadoop Services
-> -   Assign Hadoop components to individual hosts
-> -   Configure Hadoop Services
->
-> These tasks are entirely dependent on the needs of the client. If you require assistance with the choosing which Hadoop services to use, the most optimum mapping of hosts to services, etc., StackIQ recommends that the administrator contact Hortonworks Inc. for more information on the choices for installation and configuration of the HDP stack.
->
-> This document lists a rudimentary HDP cluster with all services configured and installed.
+The Ambari instructions will require you to:
+
+* Choose Hadoop Services
+* Assign Hadoop components to individual hosts
+* Configure Hadoop Services
+
+These tasks are entirely dependent on the needs of the client. If you require assistance with choosing which Hadoop 
+services to use, the most optimum mapping of hosts to services, etc., StackIQ recommends that the administrator 
+contact Hortonworks Inc. for more information on the choices for installation and configuration of the HDP stack.
+
+[Hortonworks documentation](http://docs.hortonworks.com/index.html) has a plethora of possibilties.
+
+This document lists a rudimentary HDP cluster with all services configured and installed.
 
 1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://backend-0-0.local:8080` This will bring up the figure-ambari-ui-login.
 
@@ -235,91 +239,36 @@ After the installation of all the backend nodes, the Ambari Server appliance all
     > It is recommended that the cluster administrator change these values through the Ambari UI, soon after configuring the 
     > HDP installation.
 
-2.  This will bring you to the figure-ambari-cluster. Name the HDP cluster. In this example, we use the name **dev**
+From here, you should really consult the Ambari installation documentation starting at [Chapter 3](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-installation/content/ch_Deploy_and_Configure_a_HDP_Cluster.html).
 
-    ![Ambari Cluster Name Screen](src/images/ambari/ambari-clustername.png)
+This will walk you through the steps required to get something up and running. The number of options are truly stunning. 
+This would be a re-documentation of the same thing Hortonworks has already done. 
 
-    Click **Next**.
+You can start Chapter 3, because everything prior to that has been done already once you installed the Ambari appliance and 
+all the machines. You only have the configuration of the cluster left.
 
-3.  The figure-ambari-stack requires the admin to point to the version of HDP to be used, and the location of the HDP repository.
+There are, however, some caveats.
 
-    Here we choose HDP-2.1
+1. When you are asked for the SSH private key, use the private key from the frontend. Just cut and paste the key from /root/.ssh/id_rsa.
 
-    ![HDP Stacks](src/images/ambari/ambari-stacks.png)
+2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend 
+in /etc/yum.repos.d/stacki.repo It should look like below:
 
-    Click on \*\*Advanced Repository Options\*\* \<figure-ambari-repo\>.
+3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according 
+to the instructions in the [Using Non-Default Databases](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-reference/content/ch_amb_ref_using_non_default_databases.html#header) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
 
-    By default, all OSes other than **Redhat 6** are disabled. Verify that this is the case, and that it points to the distribution on the frontend.
+At the end of this process, you should have a fully-functional HDP installation. You may likely need to do this several times 
+before you get it right. That's okay, Stacki allows for the fast install/reinstall of a cluster. And if you run into problems, 
+ask on Slack or on the Google Group, and someone should be able to at least point you in the right direction.
 
-    If the cluster-wide IP address of the StackIQ management node is `10.1.1.1`, the repository should point to `http://10.1.1.1/install/distributions/stack-dist/x86_64`.
 
-    ![HDP RepoID and URL](src/images/ambari/ambari-repo.png)
+#### The Future of this Pallet
 
-    Click **Next**.
-
-4.  The figure-ambari-bootstrap is where the administrator will enter information about the cluster.
-
-    In the space meant for **Names of Hosts**, enter the names of all the **Compute** hosts in your cluster.
-
-    In the space meant for *Private Key*, enter the contents of the `/root/.ssh/id_rsa` private key.
-
-    ![Host Installation Screen](src/images/ambari/ambari-bootstrap-hosts.png)
-
-    Click **Next**.
-
-5.  The figure-ambari-hostinst shows you the status of installation and registration of compute nodes with the Ambari server.
-
-    ![Host Installation Screen](src/images/ambari/ambari-hostinst.png)
-
-    This process, depending on the number of hosts, typically takes a few minutes to complete. Once all the nodes have successfully installed, and you see the figure-ambari-hostinst-complete screen, click **Next**.
-
-    ![Host Installation Completion](src/images/ambari/ambari-hostinst-complete.png)
-
-    > **warning**
-    >
-    > During this process, the Ambari GUI may complain about IPtables, and about ganglia. These warnings can be ignored.
-
-6.  The figure-ambari-services shows you all the available services in the HDP-2.1 stack. For this example we select all available services.
-
-    ![HDP Services Screen](src/images/ambari/ambari-services.png)
-
-    Click **Next**.
-
-7.  The figure-ambari-service-map shows the mapping mapping between hosts and Master services. You may choose to leave this mapping as-is, or modify it to suit the needs of the installation.
-
-    ![HDP Master Components screen](src/images/ambari/ambari-service-map.png)
-
-    Click **Next**
-
-8.  The figure-ambari-service-map2 shows the mapping of hosts to slave and client components.
-
-    ![HDP Slave/Client Components screen](src/images/ambari/ambari-service-map2.png)
-
-    Click **Next**
-
-9.  The figure-ambari-service-conf shows the configuration of all the services selected. You can customize the services as necessary.
-
-    ![HDP Service Configuration](src/images/ambari/ambari-service-conf.png)
-
-    > **note**
-    >
-    > The services that have the red badge next to their  
-    > name require attention. Navigate to those services, and fill in the required configuration.
-    >
-10. The figure-ambari-confirmation, shows the confirmation dialog before starting the installation.
-
-    ![Confirmation/Deployment Screen](src/images/ambari/ambari-confirmation.png)
-
-11. The figure-ambari-installing, shows the status and progress of the installation of the HDP components, and dependent services.
-
-    ![HDP Installation Screen](src/images/ambari/ambari-installing.png)
-
-12. The figure-ambari-finish, shows the completion of the HDP Installation
-
-    ![HDP Installation Screen](src/images/ambari/ambari-finish.png)
-
-At the end of this process, you should have a fully-functional HDP installation.
-
+Some ideas:
+* Create options for a non-default database. Use key/value pairs or maybe a standalone default DB appliance?
+* API calls to just set this up from the command line. Hortonworks has an API, command line calls should be able to do all of 
+this from the frontend without touching the web-UI.
+* 
 
 ### The Future of Pallets
 
