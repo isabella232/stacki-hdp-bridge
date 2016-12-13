@@ -250,7 +250,7 @@ all the machines. You only have the configuration of the cluster left.
 There are, however, some caveats.
 
 1. When you are asked for the SSH private key, use the private key from the frontend. Just cut and paste the key from /root/.ssh/id_rsa.
-2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend in /etc/yum.repos.d/stacki.repo It should look like below:
+2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend in /etc/yum.repos.d/stacki.repo. Copy and paste the URLs for HDP and HDP-Utils from a ```cat /etc/yum.repos.d/stacki.repo```.
 3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according to the instructions in the [Using Non-Default Databases](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-reference/content/ch_amb_ref_using_non_default_databases.html#header) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
 
 At the end of this process, you should have a fully-functional HDP installation. You may likely need to do this several times 
@@ -264,7 +264,6 @@ Some ideas:
 * Create options for a using non-default database for selected services. Use key/value pairs or maybe a standalone default DB appliance?
 * API calls to just set this up from the command line. Hortonworks has an API, command line calls should be able to do all of 
 this from the frontend without touching the web-UI.
-* 
 
 ### The Future of Pallets in General
 
