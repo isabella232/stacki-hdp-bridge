@@ -228,7 +228,7 @@ contact Hortonworks Inc. for more information on the choices for installation an
 
 Let's get you in.
 
-1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://backend-0-0.local:8080` This will bring up the figure-ambari-ui-login.
+1.  In this example, the hostname of the ambari server is `backend-0-0.local`. Using a web-browser from your StackIQ management node, navigate to `http://backend-0-0.local:8080` This will bring up the Ambari UI Login screen.
 
     ![Ambari Login Screen](src/images/ambari/ambari-login.png)
 
