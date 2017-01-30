@@ -100,7 +100,14 @@ If you do:
 You won't have any HDP or Ambari pallets yet. We are going to get them now.
 
 ```
-# gethdp
+# cd /export/HDP
+
+# ./gethdp
+```
+
+You might have to add the foundation-py-requests rpm to get that to work:
+```
+# yum -y foundation-py-requests
 ```
 
 This generates the ambari.repo and hdp.repo files in the /export/HDP directory. Then it uses those repo files to download the 
