@@ -30,9 +30,9 @@ I can wait...(Are we there yet?)
 2. Install the stacki-hdp-pallet.
 On your frontend, either download, add enable:
 
-If we have actually put this into S3 somewhere:
+This is currently in S3 so download it:
 ```
-# wget * the iso
+# wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/stacki-hdp-bridge-2.5-7.x.x86_64.disk1.iso
 
 Add and then add and enable the pallet:
 
@@ -46,7 +46,7 @@ Then enable it:
 # stack enable pallet stacki-hdp-pallet
 ```
 
-or clone,build, add, and enable
+or clone, build, add, and enable
 ```
 # git clone this https://github.com/StackIQ/stacki-hdp-bridge.git
 # cd stacki-hdp-bridge
