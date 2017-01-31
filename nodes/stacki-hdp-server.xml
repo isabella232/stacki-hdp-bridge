@@ -12,6 +12,7 @@ Redistribution is prohibited.
 
 
 <package>stacki-hdp-bridge-repo</package>
+<package>foundation-py-requests</package>
 
 
 <post>
