@@ -133,6 +133,39 @@ Updates-ambari:    2.4.2.0  7.x     x86_64 redhat default
 stacki-hdp-bridge: 2.5      7.x     x86_64 redhat default
 ```
 
+If your frontend does NOT have access to the internet, then running ./gethdp is, technically, fruitless. So if you don't have access, download the following on some machine that does have internet access. (If you don't have internet access anywhere within your organization, then you are not reading this and it doesn't matter then does it?)
+
+Go get these and make sure they get on the Stacki frontend. Copying them to /export is ususally a good idea because it's usually the largest partition.
+
+```
+wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/HDP-2.5.3.0-7.x.x86_64.disk1.iso
+wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/HDP-UTILS-1.1.0.21-7.x.x86_64.disk1.iso
+wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/Updates-ambari-2.4.2.0-7.x.x86_64.disk1.iso
+
+Check the md5sums. No really. We'll both be happy.
+
+wget https://s3.amazonaws.com/stacki/public/pallets/3.2/open-source/md5sum.txt
+```
+
+You might also want the full CentOS distribution if you haven't done that as part of the Stacki frontend install.
+
+```
+wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-7-x86_64-Everything-1511.iso
+wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-Updates-7.2-0.x86_64.disk1.iso
+
+wget https://s3.amazonaws.com/stacki/public/os/centos/7/md5sum.txt
+```
+But this time you have to add all the pallets yourself. Like this:
+
+```
+# stack add pallet HDP-2.5.3.0-7.x.x86_64.disk1.iso HDP-UTILS-1.1.0.21-7.x.x86_64.disk1.iso Updates-ambari-2.4.2.0-7.x.x86_64.disk1.iso
+
+Then enable:
+
+# stack enable pallet HDP HDP-UTILS Updates-ambari
+```
+
+
 ##### Installing an Ambari Server on a backend node
 
 With all the right pallets added and enabled. We can go about installing an Ambari server. This goes on a "backend" node and 
