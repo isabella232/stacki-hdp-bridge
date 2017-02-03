@@ -27,7 +27,7 @@ This has been documented [before](https://github.com/StackIQ/stacki/wiki/Fronten
 you have already installed a frontend. If you are here without a stacki frontend. Go install one. Then come back. 
 I can wait...(Are we there yet?)
 
-2. Install the stacki-hdp-pallet.
+2. Install the stacki-hdp-bridge pallet.
 On your frontend, either download, add enable:
 
 This is currently in S3 so download it:
@@ -36,14 +36,14 @@ This is currently in S3 so download it:
 
 Add and then add and enable the pallet:
 
-# stack add pallet stacki-hdp-pallet*.iso
+# stack add pallet stacki-hdp-bridge*.iso
 # stack list pallet 
 
 to make sure it's present
 
 Then enable it:
 
-# stack enable pallet stacki-hdp-pallet
+# stack enable pallet stacki-hdp-bridge
 ```
 
 or clone, build, add, and enable
@@ -53,8 +53,8 @@ or clone, build, add, and enable
 # make
 
 Add and enable:
-# stack add pallet build-stacki-hdp-bridge-master/stacki-hdp-pallet*.iso
-# stack enable pallet stacki-hdp-pallet
+# stack add pallet build-stacki-hdp-bridge-master/stacki-hdp-bridge*.iso
+# stack enable pallet stacki-hdp-bridge
 ```
 
 Now run it. A pallet generally has both frontend and backend configuration. To get the frontend configuration to happen for a pallet that contains it, run the pallet
