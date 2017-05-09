@@ -23,8 +23,8 @@ Redistribution is prohibited.
 [default]
 distribution = 2.x
 os = centos7
-ambari = 2.4.2.0
-hdp = 2.5.3.0
+ambari = 2.5.0.3
+hdp = 2.6.0.3
 </file>
 
 </post>
