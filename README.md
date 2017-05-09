@@ -1,6 +1,9 @@
 Introduction
 ============
 
+***This pallet is for Stacki 4.0. If you want this pallet for Stacki 3.2, go to the release_3.2 for proper
+instructions and download links.***
+
 The Hortonworks Data Platform (HDP) is an enterprise-grade Hadoop distribution from Hortonworks. Architected, developed, and built completely in the open, HDP provides Hadoop designed to meet the needs of enterprise data processing.
 
 The deployment of HDP on a cluster is a non-trivial task. The Ambari service, developed by Hortonworks, aids in the 
@@ -32,8 +35,7 @@ On your frontend, either download, add enable:
 
 This is currently in S3 so download it:
 ```
-# wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/stacki-hdp-bridge-2.5-7.x.x86_64.disk1.iso
-
+# wget https://s3.amazonaws.com/stacki/public/pallets/4.0/open-source/stacki-hdp-bridge-2.6-7.x.x86_64.disk1.iso
 Add and then add and enable the pallet:
 
 # stack add pallet stacki-hdp-bridge*.iso
@@ -84,12 +86,12 @@ Let's get the HDP and HDP-UTILS and Ambari repositories.
 [default]
 distribution = 2.x
 os = centos7
-ambari = 2.4.2.0
-hdp = 2.5.3.0
+ambari = 2.5.0.3
+hdp = 2.6.0.3
 ```
 
 
-The hdp.cfg is an ini-style file that tells the "gethdp" program which versions of the Ambari and HDP to download. You'll note that this is latest and greatest. To get something different, change the appropriate entries and run the "gethdp" script in that directory. I don't know what to tell you if you want this on Ubuntu. Aks the question on either googlegroups or Slack. I might have an answer by then.
+The hdp.cfg is an ini-style file that tells the "gethdp" program which versions of the Ambari and HDP to download. You'll note that this is latest and greatest. To get something different, change the appropriate entries and run the "gethdp" script in that directory. I don't know what to tell you if you want this on Ubuntu. Ask the question on either googlegroups or Slack. I might have an answer by then.
 
 #### Get the distribution:
 
@@ -117,20 +119,20 @@ have slept.
 Once they're downloaded, this script will add the HDP, HDP-Utils and Ambari pallets and it will enable them too. Maybe 
 that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, you 
 can always reassign them to a different box. If you find this decision I made on your behalf to be too much like the the worst 
-parts of your dysfunctional family, let us know, and I'll remove the code and happily let you add and enable your own damn pallets. 
+parts of your dysfunctional family, let us know, and I'll remove the code and happily let you add and enable your own damn pallets.)
 
 It should look like this:
 ```
 # stack list pallet
 
-NAME               VERSION  RELEASE ARCH   OS     BOXES
-CentOS:            7        7.x     x86_64 redhat default
-stacki:            3.3      7.x     x86_64 redhat default
-CentOS-Updates:    7.2      0       x86_64 redhat default
-HDP-UTILS:         1.1.0.21 7.x     x86_64 redhat default
-HDP:               2.5.3.0  7.x     x86_64 redhat default
-Updates-ambari:    2.4.2.0  7.x     x86_64 redhat default
-stacki-hdp-bridge: 2.5      7.x     x86_64 redhat default
+NAME              VERSION              RELEASE ARCH   OS     BOXES
+CentOS            7                    7.x     x86_64 redhat default
+stacki            4.0_20170414_c4aff2a 7.x     x86_64 redhat default
+CentOS-Updates    4.0_20170414_c4aff2a 7.x     x86_64 redhat default
+stacki-hdp-bridge 2.6                  7.x     x86_64 redhat default
+HDP               2.6.0.3              7.x     x86_64 redhat default
+HDP-UTILS         1.1.0.21             7.x     x86_64 redhat default
+ambari            2.5.0.3              7.x     x86_64 redhat default
 ```
 
 If your frontend does NOT have access to the internet, then running ./gethdp is, technically, fruitless. So if you don't have access, download the following on some machine that does have internet access. (If you don't have internet access anywhere within your organization, then you are not reading this and it doesn't matter then does it?)
@@ -150,8 +152,8 @@ wget https://s3.amazonaws.com/stacki/public/pallets/3.2/open-source/md5sum.txt
 You might also want the full CentOS distribution if you haven't done that as part of the Stacki frontend install.
 
 ```
-wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-7-x86_64-Everything-1511.iso
-wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-Updates-7.2-0.x86_64.disk1.iso
+wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-7-x86_64-Everything-1611.iso
+wget https://s3.amazonaws.com/stacki/public/os/centos/7/CentOS-Updates-7.3-7.x.x86_64.disk1.iso
 
 wget https://s3.amazonaws.com/stacki/public/os/centos/7/md5sum.txt
 ```
