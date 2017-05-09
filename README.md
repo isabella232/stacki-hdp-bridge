@@ -31,7 +31,7 @@ you have already installed a frontend. If you are here without a stacki frontend
 I can wait...(Are we there yet?)
 
 2. Install the stacki-hdp-bridge pallet.
-On your frontend, either download, add enable:
+On your frontend, download, add, enable:
 
 This is currently in S3 so download it:
 ```
@@ -49,6 +49,7 @@ Then enable it:
 ```
 
 or clone, build, add, and enable
+
 ```
 # git clone this https://github.com/StackIQ/stacki-hdp-bridge.git
 # cd stacki-hdp-bridge
@@ -60,6 +61,7 @@ Add and enable:
 ```
 
 Now run it. A pallet generally has both frontend and backend configuration. To get the frontend configuration to happen for a pallet that contains it, run the pallet
+
 ```
 # stack run pallet stacki-hdp-bridge
 ```
@@ -108,7 +110,7 @@ You won't have any HDP or Ambari pallets yet. We are going to get them now.
 ```
 
 This generates the ambari.repo and hdp.repo files in the /export/HDP directory. Then it uses those repo files to download the 
-Updates-ambari, HDP, and HDP-Utils repositories and turns them into pallets. (Combines them into an iso file which is 
+ambari, HDP, and HDP-Utils repositories and turns them into pallets. (Combines them into an iso file which is 
 what a pallet is.) 
 
 Now wait. Depending on your connection to the outside world, this can take minutes to hours. Go to lunch. Do yoga and then take a nap.
@@ -117,8 +119,7 @@ ever have in your life and go home a quivering mass of stressed-out flesh. In th
 have slept.
 
 Once they're downloaded, this script will add the HDP, HDP-Utils and Ambari pallets and it will enable them too. Maybe 
-that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, you 
-can always reassign them to a different box. If you find this decision I made on your behalf to be too much like the the worst 
+that's presumptuous of me to decide that for you, but why did you download this if you weren't going to do that? (Okay, I guess you could always reassign them to a different box. If you find this decision I made on your behalf to be too much like the the worst 
 parts of your dysfunctional family, let us know, and I'll remove the code and happily let you add and enable your own damn pallets.)
 
 It should look like this:
@@ -135,9 +136,9 @@ HDP-UTILS         1.1.0.21             7.x     x86_64 redhat default
 ambari            2.5.0.3              7.x     x86_64 redhat default
 ```
 
-If your frontend does NOT have access to the internet, then running ./gethdp is, technically, fruitless. So if you don't have access, download the following on some machine that does have internet access. (If you don't have internet access anywhere within your organization, then you are not reading this and it doesn't matter then does it?)
+If your frontend does NOT have access to the internet, then running ./gethdp is, hypothetically and technically, fruitless. So if you don't have access, download the following on some machine that does have internet access. (If you don't have internet access anywhere within your organization, then you are not reading this and it doesn't matter then does it?)
 
-Go get these and make sure they get on the Stacki frontend. Copying them to /export is ususally a good idea because it's usually the largest partition.
+Go get these and make sure they get on the Stacki frontend. Copying them to /export is a good idea because it's usually the largest partition.
 
 ```
 wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/HDP-2.5.3.0-7.x.x86_64.disk1.iso
@@ -160,7 +161,7 @@ wget https://s3.amazonaws.com/stacki/public/os/centos/7/md5sum.txt
 But this time you have to add all the pallets yourself. Like this:
 
 ```
-# stack add pallet HDP-2.5.3.0-7.x.x86_64.disk1.iso HDP-UTILS-1.1.0.21-7.x.x86_64.disk1.iso Updates-ambari-2.4.2.0-7.x.x86_64.disk1.iso
+# stack add pallet *.iso
 
 Then enable:
 
@@ -276,7 +277,7 @@ Let's get you in.
     > It is recommended that the cluster administrator change these values through the Ambari UI, soon after configuring the 
     > HDP installation.
 
-From here, you should really consult the Ambari installation documentation starting at [Chapter 3](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-installation/content/ch_Deploy_and_Configure_a_HDP_Cluster.html).
+From here, you should really consult the Ambari installation documentation starting at [Chapter 3](https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-installation/content/ch_Deploy_and_Configure_a_HDP_Cluster.html).
 
 This will walk you through the steps required to get HDP up and running. The number of options are truly stunning, and covering all 
 of them would be a re-writing of the Hortonworks documentation. They're the experts; they should guide you.
@@ -288,7 +289,7 @@ There are, however, some caveats.
 
 1. When you are asked for the SSH private key, use the private key from the frontend. Just cut and paste the key from /root/.ssh/id_rsa.
 2. When you are asked for the repositories, you want to put the HPD and HDP-Utils urls as they are listed on the frontend in /etc/yum.repos.d/stacki.repo. Copy and paste the URLs for HDP and HDP-Utils from a ```cat /etc/yum.repos.d/stacki.repo```.
-3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according to the instructions in the [Using Non-Default Databases](http://docs.hortonworks.com/HDPDocuments/Ambari-2.4.2.0/bk_ambari-reference/content/ch_amb_ref_using_non_default_databases.html#header) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
+3. If you want to use a MariDB/MySQL server for Hive, Oozie, or Ambari, you'll have to set that up on one of the machines according to the instructions in the [Using Non-Default Databases](https://docs.hortonworks.com/HDPDocuments/Ambari-2.5.0.3/bk_ambari-administration/content/ch_amb_ref_using_non_default_databases.html) documentation from Hortonworks. This would be a good candidate for another machine or for running multiple/sharing databases on the Ambari appliance.
 
 At the end of this process, you should have a fully-functional HDP installation. You may likely need to do this several times 
 before you get it right. That's OK, Stacki allows for the fast install/reinstall of a cluster. If you run into problems, 
