@@ -141,13 +141,13 @@ If your frontend does NOT have access to the internet, then running ./gethdp is,
 Go get these and make sure they get on the Stacki frontend. Copying them to /export is a good idea because it's usually the largest partition.
 
 ```
-wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/HDP-2.5.3.0-7.x.x86_64.disk1.iso
-wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/HDP-UTILS-1.1.0.21-7.x.x86_64.disk1.iso
-wget http://stacki.s3.amazonaws.com/public/pallets/3.2/open-source/Updates-ambari-2.4.2.0-7.x.x86_64.disk1.iso
+wget https://s3.amazonaws.com/stacki/public/pallets/4.0/open-source/HDP-2.6.0.3-7.x.x86_64.disk1.iso
+wget https://s3.amazonaws.com/stacki/public/pallets/4.0/open-source/HDP-UTILS-1.1.0.21-7.x.x86_64.disk1.isow
+wget https://s3.amazonaws.com/stacki/public/pallets/4.0/open-source/ambari-2.5.0.3-7.x.x86_64.disk1.iso
 
 Check the md5sums. No really. We'll both be happy.
 
-wget https://s3.amazonaws.com/stacki/public/pallets/3.2/open-source/md5sum.txt
+wget https://s3.amazonaws.com/stacki/public/pallets/4.0/open-source/md5sum.txt
 ```
 
 You might also want the full CentOS distribution if you haven't done that as part of the Stacki frontend install.
